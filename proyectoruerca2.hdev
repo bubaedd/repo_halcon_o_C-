@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="18.11.2.0">
+<procedure name="main">
+<interface/>
+<body>
+<c></c>
+<c>*leo imagen</c>
+<l>read_image(image,'C:/Users/thebo/OneDrive/Escritorio/tareaMIRS/proyecto tuerca/Sel_200326/2020112651559_7.16')</l>
+<c></c>
+<c>*se descompone la imagen en regiones</c>
+<l>select_obj (image, subimage, 2)</l>
+<l>access_channel (subimage, xm, 1)</l>
+<l>access_channel (subimage,ym, 2)</l>
+<l>access_channel (subimage,zm, 3)</l>
+<c></c>
+<c>*se reduce la imagen </c>
+<l>gen_rectangle1 (ROI_0, 439.606, 518.492, 688.32, 783.814)</l>
+<c></c>
+<l>stop()</l>
+<l>reduce_domain (zm, ROI_0, ImageReduced)</l>
+<c></c>
+<l>reduce_domain(xm,ImageReduced,r1)</l>
+<l>reduce_domain(ym,ImageReduced,r2)</l>
+<l>reduce_domain(zm,ImageReduced,r3)</l>
+<l>stop()</l>
+<c>*se recorren y observan los diferentes objetos de la imagen reducida conforme a su indice</c>
+<l>auto_threshold(ImageReduced,regiones,6)</l>
+<c></c>
+<l>select_obj (regiones, r1, 1)</l>
+<l>stop()</l>
+<l>select_obj (regiones, r2, 2)</l>
+<l>stop()</l>
+<l>select_obj (regiones, r3, 3)</l>
+<l>stop()</l>
+<l>select_obj (regiones, r4, 4)</l>
+<l>stop()</l>
+<l>select_obj (regiones, r5, 5)</l>
+<c></c>
+<c>*configuro la ventana</c>
+<l>dev_close_window ()</l>
+<l>dev_open_window (0, 0, 800,600, 'black', WindowHandle)</l>
+<l>dev_set_part (0, 0, 1280 - 1, 1024 - 1)</l>
+<l>dev_display (image)</l>
+<l>stop()</l>
+<c>* colors and other settings for the visualization</c>
+<l>dev_set_color ('cyan')</l>
+<l>dev_set_draw ('margin')</l>
+<l>dev_set_line_width (2)</l>
+<l>set_display_font (WindowHandle, 14, 'mono', 'true', 'false')</l>
+<l>disp_continue_message (WindowHandle, 'black', 'true')</l>
+<c></c>
+<c></c>
+<c>*se toman las regiones de interes </c>
+<l>reduce_domain (ImageReduced, r2, ROI_2)</l>
+<l>stop()</l>
+<l>reduce_domain (ImageReduced, r3, ROI_3)</l>
+<c>*se toma el centro del area</c>
+<l>area_center (ROI_3, Area, Row, Column)</l>
+<c>*mensaje de centro de area de la imagen reducida ROI_3</c>
+<l>disp_message (WindowHandle, Area, 'image', Row , Column , 'white', 'false')</l>
+<l>stop()</l>
+<l>reduce_domain (ImageReduced, r4, ROI_4)</l>
+<l>stop()</l>
+<c></c>
+<c></c>
+<c></c>
+<c>*parametros para creacion de modelo 3d de ROI_3</c>
+<l>reduce_domain(zm,ROI_3,reduce)</l>
+<c></c>
+<l>reduce_domain(xm,ROI_3,r11)</l>
+<l>reduce_domain(ym,ROI_3,r12)</l>
+<l>reduce_domain(zm,ROI_3,r13)</l>
+<c></c>
+<c>*Creacion y visualizacion del modelo 3d de ROI_3</c>
+<l>xyz_to_object_model_3d (r11,r12, r13, ObjectModel3D)</l>
+<l>parametros_visualizacion:=['disp_pose','color_attrib','lut','disp_lines','point_size']</l>
+<l>valores:=['true','coord_z','rainbow','false',1]</l>
+<l>dev_get_window(WindowHandle)</l>
+<c></c>
+<l>visualize_object_model_3d (WindowHandle, ObjectModel3D, [], [], parametros_visualizacion, valores, [], [], [], PoseOut)</l>
+<c></c>
+<c>    </c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c>    </c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
