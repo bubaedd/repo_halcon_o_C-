@@ -3,7 +3,7 @@
 <procedure name="main">
 <interface/>
 <body>
-<c></c>
+<c>*este es un comentario que se agrego hoy </c>
 <c>*leo imagen</c>
 <l>read_image(image,'C:/Users/thebo/OneDrive/Escritorio/tareaMIRS/proyecto tuerca/Sel_200326/2020112651559_7.16')</l>
 <c></c>
